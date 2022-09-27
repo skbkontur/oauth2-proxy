@@ -2,7 +2,9 @@ GO ?= go
 GOLANGCILINT ?= golangci-lint
 
 BINARY := oauth2-proxy
-VERSION ?= $(shell git describe --always --dirty --tags 2>/dev/null || echo "undefined")
+VERSION := $(shell git describe --always --tags | sed -e 's/^v//i' | awk -F- '{ printf "%s\n", $$1}')
+RELEASE := $(shell git describe --always --tags | sed -e 's/^v//i' | awk -F- '{ printf "%s_%s\n", $$2, $$3}')
+
 # Allow to override image registry.
 REGISTRY ?= quay.io/oauth2-proxy
 .NOTPARALLEL:
@@ -37,7 +39,22 @@ lint: validate-go-version
 build: validate-go-version clean $(BINARY)
 
 $(BINARY):
-	CGO_ENABLED=0 $(GO) build -a -installsuffix cgo -ldflags="-X main.VERSION=${VERSION}" -o $@ github.com/oauth2-proxy/oauth2-proxy/v7
+	CGO_ENABLED=0 $(GO) build -a -installsuffix cgo -ldflags="-X main.VERSION=${VERSION}-${RELEASE}" -o $@ github.com/oauth2-proxy/oauth2-proxy/v7
+
+prep:
+	- rm -rf build
+	mkdir -p build/usr/bin/ && cp oauth2-proxy build/usr/bin/
+
+rpm: prep
+	fpm -t rpm \
+		-s "dir" \
+		--description "OAuth2-proxy" \
+		-C ./build/ \
+		--vendor "SKB Kontur" \
+		--name "oauth2-proxy" \
+		--version "${VERSION}" \
+		--iteration "${RELEASE}" \
+		-p oauth2-proxy-VERSION-ITERATION.ARCH.rpm
 
 DOCKER_BUILD_PLATFORM ?= linux/amd64,linux/arm64,linux/ppc64le,linux/arm/v6,linux/arm64/v8
 DOCKER_BUILD_RUNTIME_IMAGE ?= alpine:3.15
@@ -88,7 +105,7 @@ verify-generate: generate
 	git diff --exit-code
 
 .PHONY: test
-test: lint
+test:
 	GO111MODULE=on $(GO) test $(TESTCOVER) -v -race ./...
 
 .PHONY: release
