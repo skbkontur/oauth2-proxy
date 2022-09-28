@@ -5,10 +5,10 @@ import (
 	"net/http/httptest"
 	"regexp"
 
-	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/app/pagewriter"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/ginkgo/extensions/table"
 	. "github.com/onsi/gomega"
+	"github.com/skbkontur/oauth2-proxy/pkg/app/pagewriter"
 )
 
 var _ = Describe("Rewrite", func() {

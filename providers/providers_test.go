@@ -5,8 +5,8 @@ import (
 	"os"
 	"testing"
 
-	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/apis/options"
 	. "github.com/onsi/gomega"
+	"github.com/skbkontur/oauth2-proxy/pkg/apis/options"
 )
 
 const (

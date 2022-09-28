@@ -10,7 +10,7 @@ import (
 	"strings"
 
 	"github.com/bitly/go-simplejson"
-	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/requests"
+	"github.com/skbkontur/oauth2-proxy/pkg/requests"
 	"github.com/spf13/cast"
 )
 

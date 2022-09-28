@@ -5,11 +5,11 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/apis/options"
-	sessionsapi "github.com/oauth2-proxy/oauth2-proxy/v7/pkg/apis/sessions"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/ginkgo/extensions/table"
 	. "github.com/onsi/gomega"
+	"github.com/skbkontur/oauth2-proxy/pkg/apis/options"
+	sessionsapi "github.com/skbkontur/oauth2-proxy/pkg/apis/sessions"
 )
 
 var _ = Describe("Injector Suite", func() {

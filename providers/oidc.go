@@ -7,9 +7,9 @@ import (
 	"net/url"
 	"time"
 
-	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/apis/options"
-	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/apis/sessions"
-	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/logger"
+	"github.com/skbkontur/oauth2-proxy/pkg/apis/options"
+	"github.com/skbkontur/oauth2-proxy/pkg/apis/sessions"
+	"github.com/skbkontur/oauth2-proxy/pkg/logger"
 	"golang.org/x/oauth2"
 )
 

@@ -9,10 +9,10 @@ import (
 	"time"
 
 	"github.com/go-redis/redis/v8"
-	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/apis/options"
-	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/apis/sessions"
-	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/logger"
-	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/sessions/persistence"
+	"github.com/skbkontur/oauth2-proxy/pkg/apis/options"
+	"github.com/skbkontur/oauth2-proxy/pkg/apis/sessions"
+	"github.com/skbkontur/oauth2-proxy/pkg/logger"
+	"github.com/skbkontur/oauth2-proxy/pkg/sessions/persistence"
 )
 
 // SessionStore is an implementation of the persistence.Store

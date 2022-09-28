@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/go-redis/redis/v8"
-	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/apis/sessions"
+	"github.com/skbkontur/oauth2-proxy/pkg/apis/sessions"
 )
 
 // Client is wrapper interface for redis.Client and redis.ClusterClient.

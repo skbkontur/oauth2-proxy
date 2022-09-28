@@ -6,9 +6,9 @@ import (
 	"io/ioutil"
 	"net/http/httptest"
 
-	middlewareapi "github.com/oauth2-proxy/oauth2-proxy/v7/pkg/apis/middleware"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
+	middlewareapi "github.com/skbkontur/oauth2-proxy/pkg/apis/middleware"
 )
 
 var _ = Describe("Error Page Writer", func() {

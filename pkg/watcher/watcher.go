@@ -8,7 +8,7 @@ import (
 
 	"github.com/fsnotify/fsnotify"
 
-	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/logger"
+	"github.com/skbkontur/oauth2-proxy/pkg/logger"
 )
 
 // WatchFileForUpdates performs an action every time a file on disk is updated
@@ -44,8 +44,8 @@ func WatchFileForUpdates(filename string, done <-chan bool, action func()) error
 
 // Filter file operations based on the events sent by the watcher.
 // Execute the action() function when the following conditions are met:
-//  - the real path of the file was changed (Kubernetes ConfigMap/Secret)
-//  - the file is modified or created
+//   - the real path of the file was changed (Kubernetes ConfigMap/Secret)
+//   - the file is modified or created
 func filterEvent(watcher *fsnotify.Watcher, event fsnotify.Event, filename string, action func()) {
 	switch filepath.Clean(event.Name) == filename {
 	// In Kubernetes the file path is a symlink, so we should take action

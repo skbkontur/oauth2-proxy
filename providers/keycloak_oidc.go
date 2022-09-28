@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/apis/options"
-	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/apis/sessions"
+	"github.com/skbkontur/oauth2-proxy/pkg/apis/options"
+	"github.com/skbkontur/oauth2-proxy/pkg/apis/sessions"
 )
 
 const keycloakOIDCProviderName = "Keycloak OIDC"
@@ -124,20 +124,21 @@ func (p *KeycloakOIDCProvider) getAccessClaims(ctx context.Context, s *sessions.
 // the format `client:role`.
 //
 // ResourceAccess format:
-// "resource_access": {
-//   "clientA": {
-//     "roles": [
-//       "roleA"
-//     ]
-//   },
-//   "clientB": {
-//     "roles": [
-//       "roleA",
-//       "roleB",
-//       "roleC"
-//     ]
-//   }
-// }
+//
+//	"resource_access": {
+//	  "clientA": {
+//	    "roles": [
+//	      "roleA"
+//	    ]
+//	  },
+//	  "clientB": {
+//	    "roles": [
+//	      "roleA",
+//	      "roleB",
+//	      "roleC"
+//	    ]
+//	  }
+//	}
 func getClientRoles(claims *accessClaims) []string {
 	var clientRoles []string
 	for clientName, access := range claims.ResourceAccess {

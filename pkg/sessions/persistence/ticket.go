@@ -12,10 +12,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/apis/options"
-	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/apis/sessions"
-	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/cookies"
-	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/encryption"
+	"github.com/skbkontur/oauth2-proxy/pkg/apis/options"
+	"github.com/skbkontur/oauth2-proxy/pkg/apis/sessions"
+	"github.com/skbkontur/oauth2-proxy/pkg/cookies"
+	"github.com/skbkontur/oauth2-proxy/pkg/encryption"
 )
 
 // saveFunc performs a persistent store's save functionality using

@@ -21,7 +21,7 @@ details publicly.
 Security disclosures MUST be done in private.
 If you have found an issue that you would like to bring to the attention of the
 maintenance team for OAuth2 Proxy, please compose an email and send it to the
-list of maintainers in our [MAINTAINERS](https://github.com/oauth2-proxy/oauth2-proxy/blob/master/MAINTAINERS) file.
+list of maintainers in our [MAINTAINERS](https://github.com/skbkontur/oauth2-proxy/blob/master/MAINTAINERS) file.
 
 Please include as much detail as possible.
 Ideally, your disclosure should include:

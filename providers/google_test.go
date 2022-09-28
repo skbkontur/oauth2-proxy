@@ -10,9 +10,9 @@ import (
 	"net/url"
 	"testing"
 
-	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/apis/options"
-	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/apis/sessions"
 	. "github.com/onsi/gomega"
+	"github.com/skbkontur/oauth2-proxy/pkg/apis/options"
+	"github.com/skbkontur/oauth2-proxy/pkg/apis/sessions"
 	"github.com/stretchr/testify/assert"
 	admin "google.golang.org/api/admin/directory/v1"
 	option "google.golang.org/api/option"
@@ -166,7 +166,6 @@ func TestGoogleProviderGroupValidator(t *testing.T) {
 	}
 }
 
-//
 func TestGoogleProviderGetEmailAddressInvalidEncoding(t *testing.T) {
 	p := newGoogleProvider(t)
 	body, err := json.Marshal(redeemResponse{

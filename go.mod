@@ -1,4 +1,4 @@
-module github.com/oauth2-proxy/oauth2-proxy/v7
+module github.com/skbkontur/oauth2-proxy
 
 go 1.18
 
@@ -36,6 +36,7 @@ require (
 	google.golang.org/api v0.20.0
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0
 	gopkg.in/square/go-jose.v2 v2.6.0
+	gopkg.in/yaml.v2 v2.3.0
 	k8s.io/apimachinery v0.19.3
 )
 
@@ -77,7 +78,6 @@ require (
 	google.golang.org/protobuf v1.26.0-rc.1 // indirect
 	gopkg.in/ini.v1 v1.51.0 // indirect
 	gopkg.in/tomb.v1 v1.0.0-20141024135613-dd632973f1e7 // indirect
-	gopkg.in/yaml.v2 v2.3.0 // indirect
 	gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c // indirect
 	k8s.io/gengo v0.0.0-20201113003025-83324d819ded // indirect
 	k8s.io/klog/v2 v2.4.0 // indirect

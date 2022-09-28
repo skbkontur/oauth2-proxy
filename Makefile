@@ -38,8 +38,11 @@ lint: validate-go-version
 .PHONY: build
 build: validate-go-version clean $(BINARY)
 
+debug:
+	CGO_ENABLED=0 $(GO) build -a -installsuffix cgo -gcflags=all='-N -l' -ldflags="-X main.VERSION=${VERSION}-${RELEASE}" -o $(BINARY) github.com/skbkontur/oauth2-proxy
+
 $(BINARY):
-	CGO_ENABLED=0 $(GO) build -a -installsuffix cgo -ldflags="-X main.VERSION=${VERSION}-${RELEASE}" -o $@ github.com/oauth2-proxy/oauth2-proxy/v7
+	CGO_ENABLED=0 $(GO) build -a -installsuffix cgo -ldflags="-X main.VERSION=${VERSION}-${RELEASE}" -o $@ github.com/skbkontur/oauth2-proxy
 
 prep:
 	- rm -rf build
@@ -107,6 +110,9 @@ verify-generate: generate
 .PHONY: test
 test:
 	GO111MODULE=on $(GO) test $(TESTCOVER) -v -race ./...
+
+testq:
+	GO111MODULE=on $(GO) test $(TESTCOVER) -race ./...
 
 .PHONY: release
 release: validate-go-version lint test

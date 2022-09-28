@@ -9,11 +9,11 @@ import (
 	"strings"
 
 	"github.com/mbland/hmacauth"
-	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/apis/options"
-	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/ip"
-	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/logger"
-	internaloidc "github.com/oauth2-proxy/oauth2-proxy/v7/pkg/providers/oidc"
-	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/util"
+	"github.com/skbkontur/oauth2-proxy/pkg/apis/options"
+	"github.com/skbkontur/oauth2-proxy/pkg/ip"
+	"github.com/skbkontur/oauth2-proxy/pkg/logger"
+	internaloidc "github.com/skbkontur/oauth2-proxy/pkg/providers/oidc"
+	"github.com/skbkontur/oauth2-proxy/pkg/util"
 )
 
 // Validate checks that required options are set and validates those that they

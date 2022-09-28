@@ -157,7 +157,7 @@ you should define the 'keycloak-group' value to /admin.
 
 ### GitLab Auth Provider
 
-This auth provider has been tested against Gitlab version 12.X. Due to Gitlab API changes, it may not work for version prior to 12.X (see [994](https://github.com/oauth2-proxy/oauth2-proxy/issues/994)).
+This auth provider has been tested against Gitlab version 12.X. Due to Gitlab API changes, it may not work for version prior to 12.X (see [994](https://github.com/skbkontur/oauth2-proxy/issues/994)).
 
 Whether you are using GitLab.com or self-hosting GitLab, follow [these steps to add an application](https://docs.gitlab.com/ce/integration/oauth_provider.html). Make sure to enable at least the `openid`, `profile` and `email` scopes, and set the redirect url to your application url e.g. https://myapp.com/oauth2/callback.
 
@@ -255,7 +255,7 @@ To configure the OIDC provider for Dex, perform the following steps:
 
 5. Test the setup by visiting http://127.0.0.1:4180 or http://127.0.0.1:4180/static .
 
-See also [our local testing environment](https://github.com/oauth2-proxy/oauth2-proxy/blob/master/contrib/local-environment) for a self-contained example using Docker and etcd as storage for Dex.
+See also [our local testing environment](https://github.com/skbkontur/oauth2-proxy/blob/master/contrib/local-environment) for a self-contained example using Docker and etcd as storage for Dex.
 
 #### Okta
 
@@ -504,7 +504,7 @@ To authorize by email domain use `--email-domain=yourcompany.com`. To authorize 
 
 ## Adding a new Provider
 
-Follow the examples in the [`providers` package](https://github.com/oauth2-proxy/oauth2-proxy/blob/master/providers/) to define a new
+Follow the examples in the [`providers` package](https://github.com/skbkontur/oauth2-proxy/blob/master/providers/) to define a new
 `Provider` instance. Add a new `case` to
-[`providers.New()`](https://github.com/oauth2-proxy/oauth2-proxy/blob/master/providers/providers.go) to allow `oauth2-proxy` to use the
+[`providers.New()`](https://github.com/skbkontur/oauth2-proxy/blob/master/providers/providers.go) to allow `oauth2-proxy` to use the
 new `Provider`.

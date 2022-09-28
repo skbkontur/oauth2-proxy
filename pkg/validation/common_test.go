@@ -4,10 +4,10 @@ import (
 	"io/ioutil"
 	"os"
 
-	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/apis/options"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/ginkgo/extensions/table"
 	. "github.com/onsi/gomega"
+	"github.com/skbkontur/oauth2-proxy/pkg/apis/options"
 )
 
 var _ = Describe("Common", func() {

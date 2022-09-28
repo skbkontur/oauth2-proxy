@@ -7,9 +7,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/apis/options"
-	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/logger"
-	requestutil "github.com/oauth2-proxy/oauth2-proxy/v7/pkg/requests/util"
+	"github.com/skbkontur/oauth2-proxy/pkg/apis/options"
+	"github.com/skbkontur/oauth2-proxy/pkg/logger"
+	requestutil "github.com/skbkontur/oauth2-proxy/pkg/requests/util"
 )
 
 // MakeCookieFromOptions constructs a cookie based on the given *options.CookieOptions,

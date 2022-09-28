@@ -6,8 +6,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/apis/sessions"
 	. "github.com/onsi/gomega"
+	"github.com/skbkontur/oauth2-proxy/pkg/apis/sessions"
 	"github.com/stretchr/testify/assert"
 )
 

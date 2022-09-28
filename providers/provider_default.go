@@ -7,9 +7,9 @@ import (
 	"fmt"
 	"net/url"
 
-	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/apis/middleware"
-	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/apis/sessions"
-	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/requests"
+	"github.com/skbkontur/oauth2-proxy/pkg/apis/middleware"
+	"github.com/skbkontur/oauth2-proxy/pkg/apis/sessions"
+	"github.com/skbkontur/oauth2-proxy/pkg/requests"
 )
 
 var (

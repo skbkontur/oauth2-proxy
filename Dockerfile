@@ -8,7 +8,7 @@ ARG RUNTIME_IMAGE=alpine:3.16
 FROM --platform=${BUILDPLATFORM} golang:1.18-buster AS builder
 
 # Copy sources
-WORKDIR $GOPATH/src/github.com/oauth2-proxy/oauth2-proxy
+WORKDIR $GOPATH/src/github.com/skbkontur/oauth2-proxy
 
 # Fetch dependencies
 COPY go.mod go.sum ./
@@ -45,8 +45,8 @@ RUN case ${TARGETPLATFORM} in \
 # Copy binary to alpine
 FROM ${RUNTIME_IMAGE}
 COPY nsswitch.conf /etc/nsswitch.conf
-COPY --from=builder /go/src/github.com/oauth2-proxy/oauth2-proxy/oauth2-proxy /bin/oauth2-proxy
-COPY --from=builder /go/src/github.com/oauth2-proxy/oauth2-proxy/jwt_signing_key.pem /etc/ssl/private/jwt_signing_key.pem
+COPY --from=builder /go/src/github.com/skbkontur/oauth2-proxy/oauth2-proxy /bin/oauth2-proxy
+COPY --from=builder /go/src/github.com/skbkontur/oauth2-proxy/jwt_signing_key.pem /etc/ssl/private/jwt_signing_key.pem
 
 # UID/GID 65532 is also known as nonroot user in distroless image
 USER 65532:65532

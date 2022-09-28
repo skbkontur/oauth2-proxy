@@ -5,10 +5,10 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/apis/options"
-	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/apis/sessions"
-	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/logger"
-	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/requests"
+	"github.com/skbkontur/oauth2-proxy/pkg/apis/options"
+	"github.com/skbkontur/oauth2-proxy/pkg/apis/sessions"
+	"github.com/skbkontur/oauth2-proxy/pkg/logger"
+	"github.com/skbkontur/oauth2-proxy/pkg/requests"
 )
 
 // BitbucketProvider represents an Bitbucket based Identity Provider

@@ -11,11 +11,11 @@ import (
 	"strings"
 
 	"github.com/coreos/go-oidc/v3/oidc"
-	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/apis/options"
-	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/apis/sessions"
-	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/logger"
-	internaloidc "github.com/oauth2-proxy/oauth2-proxy/v7/pkg/providers/oidc"
-	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/providers/util"
+	"github.com/skbkontur/oauth2-proxy/pkg/apis/options"
+	"github.com/skbkontur/oauth2-proxy/pkg/apis/sessions"
+	"github.com/skbkontur/oauth2-proxy/pkg/logger"
+	internaloidc "github.com/skbkontur/oauth2-proxy/pkg/providers/oidc"
+	"github.com/skbkontur/oauth2-proxy/pkg/providers/util"
 	"golang.org/x/oauth2"
 )
 

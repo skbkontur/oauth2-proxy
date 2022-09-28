@@ -3,8 +3,8 @@ package validation
 import (
 	"os"
 
-	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/apis/options"
-	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/logger"
+	"github.com/skbkontur/oauth2-proxy/pkg/apis/options"
+	"github.com/skbkontur/oauth2-proxy/pkg/logger"
 	"gopkg.in/natefinch/lumberjack.v2"
 )
 

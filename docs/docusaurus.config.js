@@ -27,7 +27,7 @@ module.exports = {
           dropdownActiveClassDisabled: true,
         },
         {
-          href: 'https://github.com/oauth2-proxy/oauth2-proxy',
+          href: 'https://github.com/skbkontur/oauth2-proxy',
           label: 'GitHub',
           position: 'right',
         },
@@ -46,7 +46,7 @@ module.exports = {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           editUrl:
-            'https://github.com/oauth2-proxy/oauth2-proxy/edit/master/docs/',
+            'https://github.com/skbkontur/oauth2-proxy/edit/master/docs/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),

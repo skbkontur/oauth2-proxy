@@ -9,13 +9,13 @@ import (
 	"sync"
 	"time"
 
-	middlewareapi "github.com/oauth2-proxy/oauth2-proxy/v7/pkg/apis/middleware"
-	sessionsapi "github.com/oauth2-proxy/oauth2-proxy/v7/pkg/apis/sessions"
-	"github.com/oauth2-proxy/oauth2-proxy/v7/pkg/clock"
-	"github.com/oauth2-proxy/oauth2-proxy/v7/providers"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/ginkgo/extensions/table"
 	. "github.com/onsi/gomega"
+	middlewareapi "github.com/skbkontur/oauth2-proxy/pkg/apis/middleware"
+	sessionsapi "github.com/skbkontur/oauth2-proxy/pkg/apis/sessions"
+	"github.com/skbkontur/oauth2-proxy/pkg/clock"
+	"github.com/skbkontur/oauth2-proxy/providers"
 )
 
 type testLock struct {

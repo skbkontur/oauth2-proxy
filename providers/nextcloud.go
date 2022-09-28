@@ -1,6 +1,6 @@
 package providers
 
-import "github.com/oauth2-proxy/oauth2-proxy/v7/pkg/apis/options"
+import "github.com/skbkontur/oauth2-proxy/pkg/apis/options"
 
 // NextcloudProvider represents an Nextcloud based Identity Provider
 type NextcloudProvider struct {
