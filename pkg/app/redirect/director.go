@@ -1,6 +1,7 @@
 package redirect
 
 import (
+	"errors"
 	"fmt"
 	"net/http"
 	"strings"
@@ -53,7 +54,7 @@ type appDirector struct {
 func (a *appDirector) GetRedirect(req *http.Request) (string, error) {
 	err := req.ParseForm()
 	if err != nil {
-		return "", err
+		return "", errors.New(err.Error() + ": " + req.URL.String())
 	}
 
 	// These redirect getter functions are strategies ordered by priority

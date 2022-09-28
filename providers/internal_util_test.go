@@ -116,6 +116,9 @@ func TestValidateSessionEmptyValidateURL(t *testing.T) {
 	defer vtTest.Close()
 	vtTest.provider.Data().ValidateURL = nil
 	assert.Equal(t, false, validateToken(context.Background(), vtTest.provider, "foobar", nil))
+
+	vtTest.provider.Data().noValidate = true
+	assert.Equal(t, true, validateToken(context.Background(), vtTest.provider, "foobar", nil))
 }
 
 func TestValidateSessionRequestNetworkFailure(t *testing.T) {

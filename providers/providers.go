@@ -37,6 +37,8 @@ func NewProvider(providerConfig options.Provider) (Provider, error) {
 		return nil, fmt.Errorf("could not create provider data: %v", err)
 	}
 	switch providerConfig.Type {
+	case options.PassportProvider:
+		return NewPassportProvider(providerData)
 	case options.ADFSProvider:
 		return NewADFSProvider(providerData, providerConfig.ADFSConfig), nil
 	case options.AzureProvider:
@@ -183,7 +185,8 @@ func parseCodeChallengeMethod(providerConfig options.Provider) string {
 func providerRequiresOIDCProviderVerifier(providerType options.ProviderType) (bool, error) {
 	switch providerType {
 	case options.BitbucketProvider, options.DigitalOceanProvider, options.FacebookProvider, options.GitHubProvider,
-		options.GoogleProvider, options.KeycloakProvider, options.LinkedInProvider, options.LoginGovProvider, options.NextCloudProvider:
+		options.GoogleProvider, options.KeycloakProvider, options.LinkedInProvider, options.LoginGovProvider, options.NextCloudProvider,
+		options.PassportProvider:
 		return false, nil
 	case options.ADFSProvider, options.AzureProvider, options.GitLabProvider, options.KeycloakOIDCProvider, options.OIDCProvider:
 		return true, nil

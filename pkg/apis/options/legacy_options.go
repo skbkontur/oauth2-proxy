@@ -680,6 +680,8 @@ func (l *LegacyProvider) convert() (Providers, error) {
 	}
 
 	switch provider.Type {
+	case "passport":
+		break
 	case "github":
 		provider.GitHubConfig = GitHubOptions{
 			Org:   l.GitHubOrg,

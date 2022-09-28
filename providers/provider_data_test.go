@@ -32,6 +32,7 @@ const (
 
 	oidcIssuer   = "https://issuer.example.com"
 	oidcClientID = "https://test.myapp.com"
+	oidcUserID   = "user@test.myapp.com"
 	oidcSecret   = "SuperSecret123456789"
 	oidcNonce    = "abcde12345edcba09876abcde12345ff"
 

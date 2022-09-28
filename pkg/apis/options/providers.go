@@ -87,6 +87,9 @@ type Provider struct {
 type ProviderType string
 
 const (
+	// PassportProvider is the provider type for Kontur.Passport
+	PassportProvider ProviderType = "passport"
+
 	// ADFSProvider is the provider type for ADFS
 	ADFSProvider ProviderType = "adfs"
 
@@ -129,6 +132,8 @@ const (
 	// OIDCProvider is the provider type for OIDC
 	OIDCProvider ProviderType = "oidc"
 )
+
+type PassportAuthConfiguration map[string][]string
 
 type KeycloakOptions struct {
 	// Group enables to restrict login to members of indicated group
