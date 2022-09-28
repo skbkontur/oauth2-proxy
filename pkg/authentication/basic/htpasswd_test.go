@@ -148,16 +148,19 @@ var _ = Describe("HTPasswd Suite", func() {
 
 					fileNames = append(fileNames, file.Name())
 
-					It("has the correct number of users", func() {
-						Expect(len(htpasswd.users)).To(Equal(hu.expectedLen))
-					})
-
 					It(hu.testText, func() {
 						Expect(htpasswd.Validate(adminUser, adminPassword)).To(hu.expectedGomegaMatcher)
 					})
 
 					It("new entry is present", func() {
 						Expect(htpasswd.Validate(user1, user1Password)).To(BeTrue())
+					})
+
+					It("has the correct number of users", func() {
+						htpasswd.rwm.RLock() // prevent data race
+						length := len(htpasswd.users)
+						htpasswd.rwm.RUnlock()
+						Expect(length).To(Equal(hu.expectedLen))
 					})
 				}
 
