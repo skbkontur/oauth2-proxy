@@ -16,6 +16,7 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/alexcesaro/statsd"
 	"github.com/gorilla/mux"
 	"github.com/justinas/alice"
 	ipapi "github.com/skbkontur/oauth2-proxy/pkg/apis/ip"
@@ -104,6 +105,8 @@ type OAuthProxy struct {
 	serveMux          *mux.Router
 	redirectValidator redirect.Validator
 	appDirector       redirect.AppDirector
+
+	StatsD *statsd.Client
 }
 
 // NewOAuthProxy creates a new instance of OAuthProxy from the options provided
@@ -798,12 +801,14 @@ func (p *OAuthProxy) OAuthCallback(rw http.ResponseWriter, req *http.Request) {
 	// finish the oauth cycle
 	err := req.ParseForm()
 	if err != nil {
+		p.incrementCallbackFailed(req.Method)
 		logger.Errorf("Error while parsing OAuth2 callback: %v", err)
 		p.ErrorPage(rw, req, http.StatusInternalServerError, err.Error())
 		return
 	}
 	errorString := req.Form.Get("error")
 	if errorString != "" {
+		p.incrementCallbackFailed(req.Method)
 		logger.Errorf("Error while parsing OAuth2 callback: %s", errorString)
 		message := fmt.Sprintf("Login Failed: The upstream identity provider returned an error: %s", errorString)
 		// Set the debug message and override the non debug message to be the same for this case
@@ -813,6 +818,7 @@ func (p *OAuthProxy) OAuthCallback(rw http.ResponseWriter, req *http.Request) {
 
 	csrf, err := cookies.LoadCSRFCookie(req, p.CookieOptions)
 	if err != nil {
+		p.incrementCallbackFailed(req.Method)
 		logger.Println(req, logger.AuthFailure, "Invalid authentication via OAuth2: unable to obtain CSRF cookie")
 		p.ErrorPage(rw, req, http.StatusForbidden, err.Error(), "Login Failed: Unable to find a valid CSRF token. Please try again.")
 		return
@@ -820,6 +826,7 @@ func (p *OAuthProxy) OAuthCallback(rw http.ResponseWriter, req *http.Request) {
 
 	session, err := p.redeemCode(req, csrf.GetCodeVerifier())
 	if err != nil {
+		p.incrementCallbackFailed(req.Method)
 		logger.Errorf("Error redeeming code during OAuth2 callback: %v", err)
 		p.ErrorPage(rw, req, http.StatusInternalServerError, err.Error())
 		return
@@ -827,6 +834,7 @@ func (p *OAuthProxy) OAuthCallback(rw http.ResponseWriter, req *http.Request) {
 
 	err = p.enrichSessionState(req.Context(), session)
 	if err != nil {
+		p.incrementCallbackFailed(req.Method)
 		logger.Errorf("Error creating session during OAuth2 callback: %v", err)
 		p.ErrorPage(rw, req, http.StatusInternalServerError, err.Error())
 		return
@@ -836,12 +844,14 @@ func (p *OAuthProxy) OAuthCallback(rw http.ResponseWriter, req *http.Request) {
 
 	nonce, appRedirect, err := decodeState(req)
 	if err != nil {
+		p.incrementCallbackFailed(req.Method)
 		logger.Errorf("Error while parsing OAuth2 state: %v", err)
 		p.ErrorPage(rw, req, http.StatusInternalServerError, err.Error())
 		return
 	}
 
 	if !csrf.CheckOAuthState(nonce) {
+		p.incrementCallbackFailed(req.Method)
 		logger.PrintAuthf(session.Email, req, logger.AuthFailure, "Invalid authentication via OAuth2: CSRF token mismatch, potential attack")
 		p.ErrorPage(rw, req, http.StatusForbidden, "CSRF token mismatch, potential attack", "Login Failed: Unable to find a valid CSRF token. Please try again.")
 		return
@@ -849,6 +859,7 @@ func (p *OAuthProxy) OAuthCallback(rw http.ResponseWriter, req *http.Request) {
 
 	csrf.SetSessionNonce(session)
 	if !p.provider.ValidateSession(req.Context(), session) {
+		p.incrementCallbackFailed(req.Method)
 		logger.PrintAuthf(session.Email, req, logger.AuthFailure, "Session validation failed: %s", session)
 		p.ErrorPage(rw, req, http.StatusForbidden, "Session validation failed")
 		return
@@ -861,18 +872,22 @@ func (p *OAuthProxy) OAuthCallback(rw http.ResponseWriter, req *http.Request) {
 	// set cookie, or deny
 	authorized, err := p.provider.Authorize(req.Context(), session)
 	if err != nil {
+		p.incrementBasicFailed(req.Method)
 		logger.Errorf("Error with authorization: %v", err)
 	}
 	if p.Validator(session.Email) && authorized {
 		logger.PrintAuthf(session.Email, req, logger.AuthSuccess, "Authenticated via OAuth2: %s", session)
 		err := p.SaveSession(rw, req, session)
 		if err != nil {
+			p.incrementCallbackFailed(req.Method)
 			logger.Errorf("Error saving session state for %s: %v", remoteAddr, err)
 			p.ErrorPage(rw, req, http.StatusInternalServerError, err.Error())
 			return
 		}
+		p.incrementBasicSuccess(session.User, req.Method)
 		http.Redirect(rw, req, appRedirect, http.StatusFound)
 	} else {
+		p.incrementAuthorizeFailed(req.Method)
 		logger.PrintAuthf(session.Email, req, logger.AuthFailure, "Invalid authentication via OAuth2: unauthorized")
 		p.ErrorPage(rw, req, http.StatusForbidden, "Invalid session: unauthorized")
 	}
@@ -920,6 +935,7 @@ func (p *OAuthProxy) enrichSessionState(ctx context.Context, s *sessionsapi.Sess
 func (p *OAuthProxy) AuthOnly(rw http.ResponseWriter, req *http.Request) {
 	session, err := p.getAuthenticatedSession(rw, req)
 	if err != nil {
+		p.incrementAuthorizeFailed(req.Method)
 		http.Error(rw, http.StatusText(http.StatusUnauthorized), http.StatusUnauthorized)
 		return
 	}
@@ -927,6 +943,7 @@ func (p *OAuthProxy) AuthOnly(rw http.ResponseWriter, req *http.Request) {
 	// Unauthorized cases need to return 403 to prevent infinite redirects with
 	// subrequest architectures
 	if !authOnlyAuthorize(req, session) {
+		p.incrementAuthorizeFailed(req.Method)
 		http.Error(rw, http.StatusText(http.StatusForbidden), http.StatusForbidden)
 		return
 	}

@@ -66,6 +66,9 @@ type Options struct {
 	// This is used for backwards compatibility for basic auth users
 	LegacyPreferEmailToUser bool `cfg:",internal"`
 
+	StatsDURI       string `flag:"statsd-uri" cfg:"statsd_uri"`
+	StatsDNameSpace string `flag:"statsd-namespace" cfg:"statsd_namespace"`
+
 	// internal values that are set after config validation
 	redirectURL        *url.URL
 	signatureData      *SignatureData
@@ -148,6 +151,9 @@ func NewFlagSet() *pflag.FlagSet {
 	flagSet.Int("redis-connection-idle-timeout", 0, "Redis connection idle timeout seconds, if Redis timeout option is non-zero, the --redis-connection-idle-timeout must be less then Redis timeout option")
 	flagSet.String("signature-key", "", "GAP-Signature request signature key (algorithm:secretkey)")
 	flagSet.Bool("gcp-healthchecks", false, "Enable GCP/GKE healthcheck endpoints")
+
+	flagSet.String("statsd-uri", "", "StatsD endpoint")
+	flagSet.String("statsd-namespace", "", "StatsD namespace")
 
 	flagSet.AddFlagSet(cookieFlagSet())
 	flagSet.AddFlagSet(loggingFlagSet())

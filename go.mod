@@ -4,6 +4,7 @@ go 1.18
 
 require (
 	github.com/Bose/minisentinel v0.0.0-20200130220412-917c5a9223bb
+	github.com/alexcesaro/statsd v2.0.0+incompatible
 	github.com/alicebob/miniredis/v2 v2.13.0
 	github.com/benbjohnson/clock v1.1.1-0.20210213131748-c97fc7b6bee0
 	github.com/bitly/go-simplejson v0.5.0
@@ -36,7 +37,6 @@ require (
 	google.golang.org/api v0.20.0
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0
 	gopkg.in/square/go-jose.v2 v2.6.0
-	gopkg.in/yaml.v2 v2.3.0
 	k8s.io/apimachinery v0.19.3
 )
 
@@ -76,8 +76,10 @@ require (
 	google.golang.org/genproto v0.0.0-20200526211855-cb27e3aa2013 // indirect
 	google.golang.org/grpc v1.27.0 // indirect
 	google.golang.org/protobuf v1.26.0-rc.1 // indirect
+	gopkg.in/alexcesaro/statsd.v2 v2.0.0 // indirect
 	gopkg.in/ini.v1 v1.51.0 // indirect
 	gopkg.in/tomb.v1 v1.0.0-20141024135613-dd632973f1e7 // indirect
+	gopkg.in/yaml.v2 v2.3.0 // indirect
 	gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c // indirect
 	k8s.io/gengo v0.0.0-20201113003025-83324d819ded // indirect
 	k8s.io/klog/v2 v2.4.0 // indirect

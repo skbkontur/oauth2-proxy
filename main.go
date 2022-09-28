@@ -2,11 +2,13 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"math/rand"
 	"os"
 	"runtime"
 	"time"
 
+	"github.com/alexcesaro/statsd"
 	"github.com/ghodss/yaml"
 	"github.com/skbkontur/oauth2-proxy/pkg/apis/options"
 	"github.com/skbkontur/oauth2-proxy/pkg/logger"
@@ -60,6 +62,18 @@ func main() {
 		logger.Fatalf("ERROR: Failed to initialise OAuth2 Proxy: %v", err)
 	}
 
+	if opts.StatsDURI != "" && opts.StatsDNameSpace != "" {
+		statsdClient, err := statsd.New(
+			statsd.Address(opts.StatsDURI),
+			statsd.Prefix(opts.StatsDNameSpace),
+		)
+		if err != nil {
+			log.Printf("Failed to configure StatsD client: %s", err)
+			oauthproxy.StatsD = nil
+		} else {
+			oauthproxy.StatsD = statsdClient
+		}
+	}
 	rand.Seed(time.Now().UnixNano())
 
 	if err := oauthproxy.Start(); err != nil {
